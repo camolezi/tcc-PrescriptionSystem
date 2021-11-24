@@ -1,0 +1,46 @@
+These addresses were generated for testing proposes, don't use them in production
+The password for all nodes in this demostration is "linux"
+
+
+Node1 - 0xf6622b3899Ac9Ff417C0A233Dffa0D746EC91a96
+Node2 - 0xE2C8FC871Dbd2Cb069a4eD9fa173A67f382477E2
+Node3 - 0x2Ea2027665454534E0a4B964664aC5f81ca7987d
+Node4 - 0x7234520AD5c1DDae28Dea6B568cFa2383d1F6E15
+
+rpcNode - 0x012030FE441A7BDc2A24Ea819A67F3aC8558CeF0
+
+geth account new --datadir <dir>
+geth init --datadir <dir> <config.json>
+
+geth --unlock <YOUR_ACCOUNT_ADDRESS> --password <YOUR_PASSWORD>
+
+enode://6b829c088f462f2cd4eba56d2c5fb0f31667a078edd476caa2b4df000f4c279ad9a6749545f86ad30f271f09e491bbae832949009a5d32ea6b63fe5e35b96307@127.0.0.1:0?discport=8001
+enode://6b829c088f462f2cd4eba56d2c5fb0f31667a078edd476caa2b4df000f4c279ad9a6749545f86ad30f271f09e491bbae832949009a5d32ea6b63fe5e35b96307@127.0.0.1:0?discport=8001
+
+enode://6b829c088f462f2cd4eba56d2c5fb0f31667a078edd476caa2b4df000f4c279ad9a6749545f86ad30f271f09e491bbae832949009a5d32ea6b63fe5e35b96307@127.0.0.1:0?discport=30301
+
+bootnode --nodekey=boot.key --addr=8001
+bootnode -nodekey -addr :8001
+
+geth --datadir node1 --networkid 62606 --port 30302 --bootnodes="enode://6b829c088f462f2cd4eba56d2c5fb0f31667a078edd476caa2b4df000f4c279ad9a6749545f86ad30f271f09e491bbae832949009a5d32ea6b63fe5e35b96307@127.0.0.1:0?discport=8001" --mine --miner.threads=1 --miner.etherbase=0xf6622b3899Ac9Ff417C0A233Dffa0D746EC91a96 --unlock "0xf6622b3899Ac9Ff417C0A233Dffa0D746EC91a96" --password pass.txt --miner.gasprice="0"
+
+geth --datadir node2 --networkid 62606 --port 30303 --bootnodes="enode://6b829c088f462f2cd4eba56d2c5fb0f31667a078edd476caa2b4df000f4c279ad9a6749545f86ad30f271f09e491bbae832949009a5d32ea6b63fe5e35b96307@127.0.0.1:0?discport=8001" --mine --miner.threads=1 --miner.etherbase=0xE2C8FC871Dbd2Cb069a4eD9fa173A67f382477E2 --unlock "0xE2C8FC871Dbd2Cb069a4eD9fa173A67f382477E2" --password pass.txt --miner.gasprice="0"
+
+geth --datadir node3 --networkid 62606 --port 30304 --bootnodes="enode://6b829c088f462f2cd4eba56d2c5fb0f31667a078edd476caa2b4df000f4c279ad9a6749545f86ad30f271f09e491bbae832949009a5d32ea6b63fe5e35b96307@127.0.0.1:0?discport=8001" --mine --miner.threads=1 --miner.etherbase=0x2Ea2027665454534E0a4B964664aC5f81ca7987d --unlock "0x2Ea2027665454534E0a4B964664aC5f81ca7987d" --password pass.txt --miner.gasprice="0"
+
+geth --datadir node4 --networkid 62606 --port 30305 --bootnodes="enode://6b829c088f462f2cd4eba56d2c5fb0f31667a078edd476caa2b4df000f4c279ad9a6749545f86ad30f271f09e491bbae832949009a5d32ea6b63fe5e35b96307@127.0.0.1:0?discport=8001" --mine --miner.threads=1 --miner.etherbase=0x7234520AD5c1DDae28Dea6B568cFa2383d1F6E15 --unlock "0x7234520AD5c1DDae28Dea6B568cFa2383d1F6E15" --password pass.txt --miner.gasprice="0"
+
+geth --datadir rpcNode --networkid 62606 --port 30306 --http --http.port 30990 --bootnodes="enode://6b829c088f462f2cd4eba56d2c5fb0f31667a078edd476caa2b4df000f4c279ad9a6749545f86ad30f271f09e491bbae832949009a5d32ea6b63fe5e35b96307@127.0.0.1:0?discport=8001"
+
+ npx hardhat run scripts/send-transaction.js --network localeth
+ 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
+ 
+ web3.eth.subscribe('logs', {}, function(error, result){
+    if (!error) console.log('got result');
+    else console.log(error);
+}).on("data", function(log){
+    console.log('got data', log);
+}).on("changed", function(log){
+    console.log('changed');
+});
+
