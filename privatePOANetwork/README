@@ -32,15 +32,5 @@ geth --datadir node4 --networkid 62606 --port 30305 --bootnodes="enode://6b829c0
 
 geth --datadir rpcNode --networkid 62606 --port 30306 --http --http.port 30990 --bootnodes="enode://6b829c088f462f2cd4eba56d2c5fb0f31667a078edd476caa2b4df000f4c279ad9a6749545f86ad30f271f09e491bbae832949009a5d32ea6b63fe5e35b96307@127.0.0.1:0?discport=8001"
 
- npx hardhat run scripts/send-transaction.js --network localeth
- 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
- 
- web3.eth.subscribe('logs', {}, function(error, result){
-    if (!error) console.log('got result');
-    else console.log(error);
-}).on("data", function(log){
-    console.log('got data', log);
-}).on("changed", function(log){
-    console.log('changed');
-});
+
 
