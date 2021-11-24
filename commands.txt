@@ -1,0 +1,95 @@
+https://medium.com/@pradeep_thomas/how-to-setup-your-own-private-ethereum-network-f80bc6aea088
+
+geth account new --datadir node1
+geth account new --datadir node2
+geth account new --datadir node3
+
+
+node1
+0xB7389e01Aa6e8A735487F97e050fB91e25ACae02
+
+node2
+0xAA413510af90BD0ba16A57fb992D0560C41cea62
+
+node3
+0x37ba5cdFF17d893203B8C3fCC249190A97c99Fe4
+
+
+puppeth
+
+geth init --datadir node privateeth.json
+
+geth init --datadir node prescriptionsnet.json
+
+bootnode -genkey boot.key
+bootnode -nodekey boot.key -verbosity 9 -addr :8001
+
+miner
+geth --datadir node1 --networkid 31304 --port 8005 --nodiscover --syncmode 'full' --verbosity 6 --mine --bootnodes enode://db60bc9b8c22eb6a36a221bf226ee1c2e7ec16c964135e2a8d49b48534b13abe1057d3002cb66dd7c6e328680e83a05d68540f7cae9884d3c612649b92769190@127.0.0.1:0?discport=8001
+
+ 
+— nodiscover — syncmode ‘full’ -verbosity 6 
+
+geth --datadir node2 --networkid 31304 --port 8007 --nodiscover --syncmode 'full' --rpc --rpcaddr 'localhost' --rpcport 18007 --rpcapi admin,debug,eth,miner,net,personal,shh,txpool,web3 --bootnodes enode://db60bc9b8c22eb6a36a221bf226ee1c2e7ec16c964135e2a8d49b48534b13abe1057d3002cb66dd7c6e328680e83a05d68540f7cae9884d3c612649b92769190@127.0.0.1:0?discport=8001
+
+
+geth --datadir node3 --networkid 31304 --port 8008 --nodiscover --syncmode 'full' --rpc --rpcaddr 'localhost' --rpcport 18008 --rpcapi admin,debug,eth,miner,net,personal,shh,txpool,web3 --bootnodes enode://db60bc9b8c22eb6a36a221bf226ee1c2e7ec16c964135e2a8d49b48534b13abe1057d3002cb66dd7c6e328680e83a05d68540f7cae9884d3c612649b92769190@127.0.0.1:0?discport=8001
+
+
+
+geth --datadir node4 --networkid 31304 --port 8009 --nodiscover --syncmode 'full' --verbosity 6 --mine --rpc --rpcaddr 'localhost' --rpcport 18009 --bootnodes enode://db60bc9b8c22eb6a36a221bf226ee1c2e7ec16c964135e2a8d49b48534b13abe1057d3002cb66dd7c6e328680e83a05d68540f7cae9884d3c612649b92769190@127.0.0.1:0?discport=8001
+
+
+
+
+enode://5c012feafa03798ffdda62edf248bb1c6f700495c95a412afc816a073967a4cf1bf06e1a6601ae2fee83062e7c8dd157845f1c2b9c3bc61fe5cf869f0723df71@127.0.0.1:0?discport=30301
+
+
+geth --datadir node1 --networkid 31304 --port 30305 --bootnodes="enode://5c012feafa03798ffdda62edf248bb1c6f700495c95a412afc816a073967a4cf1bf06e1a6601ae2fee83062e7c8dd157845f1c2b9c3bc61fe5cf869f0723df71@127.0.0.1:0?discport=30301" --mine --miner.threads=1 --miner.etherbase=0x10ec86d700cc4998cba0e9d79af1f93829c6bf08
+
+
+geth --datadir node2 --networkid 31304 --port 30306 --bootnodes="enode://5c012feafa03798ffdda62edf248bb1c6f700495c95a412afc816a073967a4cf1bf06e1a6601ae2fee83062e7c8dd157845f1c2b9c3bc61fe5cf869f0723df71@127.0.0.1:0?discport=30301"
+
+geth --datadir node3 --networkid 31304 --port 30307 --bootnodes="enode://5c012feafa03798ffdda62edf248bb1c6f700495c95a412afc816a073967a4cf1bf06e1a6601ae2fee83062e7c8dd157845f1c2b9c3bc61fe5cf869f0723df71@127.0.0.1:0?discport=30301"
+ 
+web3.fromWei(eth.getBalance(eth.coinbase))
+geth attach node2/geth.ipc
+  eth.sendTransaction({
+    from: eth.coinbase,
+    to: "0x05f515A33dd0FD291873a8D638439C72B68911Ab",
+    value: web3.toWei(1, "ether"),
+  });
+
+
+
+
+ geth --datadir node1 --networkid 31304 --port 30305 --bootnodes="enode://5c012feafa03798ffdda62edf248bb1c6f700495c95a412afc816a073967a4cf1bf06e1a6601ae2fee83062e7c8dd157845f1c2b9c3bc61fe5cf869f0723df71@127.0.0.1:0?discport=30301" --mine --miner.threads=1 --miner.etherbase=0x10ec86d700cc4998cba0e9d79af1f93829c6bf08
+
+
+geth --datadir node3 --networkid 31304 --port 30307 --bootnodes="enode://5c012feafa03798ffdda62edf248bb1c6f700495c95a412afc816a073967a4cf1bf06e1a6601ae2fee83062e7c8dd157845f1c2b9c3bc61fe5cf869f0723df71@127.0.0.1:0?discport=30301"
+
+
+geth --datadir node2 --networkid 31304 --port 30306 --http --http.port 30990 --bootnodes="enode://5c012feafa03798ffdda62edf248bb1c6f700495c95a412afc816a073967a4cf1bf06e1a6601ae2fee83062e7c8dd157845f1c2b9c3bc61fe5cf869f0723df71@127.0.0.1:0?discport=30301"
+
+
+
+bootnode --nodekey=boot.key
+
+geth attach http://127.0.0.1:30990
+
+
+errado
+geth --datadir node2 --networkid 31304 --port 30306 --http --http.port 30990 --password "linux" --unlock primary --allow-insecure-unlock --bootnodes="enode://5c012feafa03798ffdda62edf248bb1c6f700495c95a412afc816a073967a4cf1bf06e1a6601ae2fee83062e7c8dd157845f1c2b9c3bc61fe5cf869f0723df71@127.0.0.1:0?discport=30301"
+
+
+
+https://link.springer.com/article/10.1007/s42979-020-00289-7#Abs1
+
+
+==
+
+
+Greeter deployed to: 0x234eE071878eFABf70da38f6bC107783F381783D
+
+
+
